@@ -1,0 +1,27 @@
+<!-- Sidebar -->
+<ul class="sidebar navbar-nav">
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ path('default_controller_index') }}">
+            <i class="fas fa-fw fa-home"></i>
+            <span>{{ 'Pulpit' }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('project_list_controller_index') }}">
+            <i class="fas fa-fw fa-sitemap"></i>
+            <span>{{ 'Lista projektów'|trans }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('project_list_controller_search') }}">
+            <i class="fas fa-fw fa-sitemap"></i>
+            <span>{{ 'Lista projektów według priorytetu'|trans }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('task_list_controller_search') }}">
+            <i class="fas fa-fw fa-tasks"></i>
+            <span>{{ 'Listę zadań dla projektów którego procent realizacji jest powyżej 50% oraz data utworzenia zadania jest większa niż miesiąc wstecz'|trans }}</span>
+        </a>
+    </li>
+</ul>

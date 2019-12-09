@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+{% block container %}
+    {{ dump(data) }}
+    {% if data is defined and data != null and (data.count is defined and data.count > 0) %}
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed">
+                        <i class="fas fa-fw fa-tasks"></i>
+                        <span>{{ 'Szczegóły zadania'|trans }}</span> /
+                        <span>{{ data.iterator[0].taskList.projectList.projectName|e }}</span> /
+                        <span>{{ data.iterator[0].taskList.name|e }}</span>
+                    </button>
+                </h2>
+            </div>
+            <div class="card-body collapse show">
+                <div class="m-1">
+                    {% include 'Doctrine/ORM/Tools/Pagination/Paginator/paginator.html.twig' ignore missing with {'paginator': data, 'show_max_pages': 5, 'route_name': app.request.get('_route')} %}
+                </div>
+                <div class="m-1 table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr class="thead-dark">
+                            <th>#</th>
+                            <th>{{ 'Nazwa zadania'|trans }}</th>
+                            <th>{{ 'Data utworzenia'|trans }}</th>
+                            <th>{{ 'Priorytet'|trans }}</th>
+                            <th>{{ 'Nazwa projektu'|trans }}</th>
+                            <th>{{ 'Pracownik realizujący (imię, nazwisko, e-mail)'|trans }}</th>
+                            <th>{{ 'Opis'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in data.iterator %}
+                            <tr>
+                                <td>{{ data.id|e }}</td>
+                                <td>{{ data.taskList.name|e }}</td>
+                                <td>{{ data.taskList.creationDate|e|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ data.taskList.priority|e }}</td>
+                                <td>{{ data.taskList.projectList.projectName|e }}</td>
+                                <td>{{ data.employee.name|e }}, {{ data.employee.surname|e }}, {{ data.employee.email|e }}</td>
+                                <td>{{ data.description|e }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

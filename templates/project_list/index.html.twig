@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+{% block container %}
+    {{ dump(data) }}
+    {% if data is defined and data != null and (data.count is defined and data.count > 0) %}
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed">
+                        <i class="fas fa-fw fa-sitemap"></i> <span>{{ 'Lista projektów'|trans }}</span> <span>{% block card_header_subtitle %}{% endblock %}</span>
+                    </button>
+                </h2>
+            </div>
+            <div class="card-body collapse show">
+                <div class="m-1">
+                    {% include 'Doctrine/ORM/Tools/Pagination/Paginator/paginator.html.twig' ignore missing with {'paginator': data, 'show_max_pages': 5, 'route_name': app.request.get('_route')} %}
+                </div>
+                <div class="m-1 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="thead-dark">
+                                <th scope="col">#</th>
+                                <th scope="col">{{ 'Nazwa projektu'|trans }}</th>
+                                <th scope="col">{{ 'Nazwa klienta'|trans }}</th>
+                                <th scope="col">{{ 'Procent realizacji'|trans }}</th>
+                                <th scope="col">{{ 'Lista zadań przypisanych do projektu'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in data.iterator %}
+                            <tr>
+                                <th scope="row">{{ data.id }}</th>
+                                <td>{{ data.projectname }}</td>
+                                <td>{{ data.customer.name }}</td>
+                                <td>{{ data.percentage }}</td>
+                                <td>
+                                    <a href="{{ path('task_list_controller_index', { project_list:data.id } ) }}"><i class="fas fa-eye"></i> {{ 'Lista zadań przypisanych do projektu'|trans }}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
