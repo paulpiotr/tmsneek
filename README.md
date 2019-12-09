@@ -2,9 +2,9 @@
 PHP Developer – zadanie testowe
 # Instalacja
 #### Klonowanie projektu
-###### $ git clone https://github.com/paulpiotr/tmsneek.git
+###### $ git clone https://github.com/paulpiotr/tmsneek.git && cd tmsneek
 #### Instalacja bibliotek PHP
-###### $ composer update
+###### $ composer install
 #### Instalacja bibliotek JS
 ###### $ yarn install
 #### Instalacja bazy danych
@@ -21,3 +21,7 @@ PHP Developer – zadanie testowe
 - data/postgresql/schema-only.sql - tylko struktura PostgreSQL
 - jeśli trzeba utworzyć przykładowe dane można zainstalować tylko schemat odpowiedniej bazy danych i uruchomić polecenie:
 ###### $ php bin/console doctrine:fixtures:load
+- tworzenie bazy danych za pomocą doctrine:migrations
+###### $ php bin/console doctrine:migrations:execute --up 20191207082243
+- czyszczenia bazy danych
+###### $ php bin/console doctrine:migrations:execute --down 20191207082243
